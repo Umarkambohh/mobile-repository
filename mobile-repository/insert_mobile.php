@@ -76,8 +76,8 @@ try {
     
     // Execute the statement
     if ($stmt->execute()) {
-        // Success - redirect with success message
-        header("Location: add_mobile.php?success");
+        // Success - redirect to view_all.php with success message
+        header("Location: view_all.php?added");
         exit();
     } else {
         // Execution failed

@@ -96,8 +96,8 @@ try {
     
     // Execute the statement
     if ($stmt->execute()) {
-        // Success - redirect with success message
-        header("Location: edit_mobile.php?id=$mobile_id&success");
+        // Success - redirect to view_all.php with success message
+        header("Location: view_all.php?updated");
         exit();
     } else {
         // Execution failed

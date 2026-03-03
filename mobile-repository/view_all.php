@@ -27,6 +27,14 @@ if (isset($_GET['deleted'])) {
     $success_msg = "Mobile phone deleted successfully!";
 }
 
+if (isset($_GET['added'])) {
+    $success_msg = "Mobile phone added successfully!";
+}
+
+if (isset($_GET['updated'])) {
+    $success_msg = "Mobile phone updated successfully!";
+}
+
 // Handle search
 $search = trim($_GET['search'] ?? '');
 $search_query = '';
@@ -177,15 +185,14 @@ $total_count = count($mobiles);
                                         </a>
                                         
                                         <!-- Delete Action -->
-                                        <a 
-                                            href="delete_mobile.php?id=<?php echo $mobile['id']; ?>" 
+                                        <button 
                                             class="btn btn-danger" 
-                                            style="padding: 5px 10px; font-size: 12px; text-decoration: none;"
+                                            style="padding: 5px 10px; font-size: 12px;"
                                             title="Delete Mobile"
-                                            onclick="return confirm('Are you sure you want to delete this mobile phone?')"
+                                            onclick="deleteMobile(<?php echo $mobile['id']; ?>, '<?php echo htmlspecialchars($mobile['name']); ?>')"
                                         >
                                             🗑️ Delete
-                                        </a>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -209,8 +216,115 @@ $total_count = count($mobiles);
         </div>
     </div>
     
-    <!-- JavaScript for table interactivity -->
+    <!-- JavaScript for table interactivity and delete functionality -->
     <script>
+        // Delete mobile function
+        function deleteMobile(mobileId, mobileName) {
+            if (confirm(`Are you sure you want to delete "${mobileName}"? This action cannot be undone!`)) {
+                // Show loading state
+                const button = event.target;
+                const originalText = button.innerHTML;
+                button.innerHTML = '⏳ Deleting...';
+                button.disabled = true;
+                
+                // Send AJAX request
+                fetch('delete_mobile_ajax.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `id=${mobileId}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Show success message
+                        showSuccessMessage(data.message);
+                        
+                        // Remove the row from table
+                        const row = button.closest('tr');
+                        row.style.transition = 'opacity 0.3s ease';
+                        row.style.opacity = '0';
+                        
+                        setTimeout(() => {
+                            row.remove();
+                            updateMobileCount();
+                        }, 300);
+                    } else {
+                        // Show error message
+                        showErrorMessage(data.message);
+                        
+                        // Restore button
+                        button.innerHTML = originalText;
+                        button.disabled = false;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showErrorMessage('An error occurred while deleting the mobile phone');
+                    
+                    // Restore button
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                });
+            }
+        }
+        
+        // Show success message
+        function showSuccessMessage(message) {
+            // Remove any existing alerts
+            const existingAlerts = document.querySelectorAll('.alert');
+            existingAlerts.forEach(alert => alert.remove());
+            
+            // Create success alert
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-success';
+            alertDiv.innerHTML = message;
+            
+            // Insert at the top of the card
+            const card = document.querySelector('.card');
+            card.insertBefore(alertDiv, card.firstChild);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                alertDiv.style.transition = 'opacity 0.3s ease';
+                alertDiv.style.opacity = '0';
+                setTimeout(() => alertDiv.remove(), 300);
+            }, 3000);
+        }
+        
+        // Show error message
+        function showErrorMessage(message) {
+            // Remove any existing alerts
+            const existingAlerts = document.querySelectorAll('.alert');
+            existingAlerts.forEach(alert => alert.remove());
+            
+            // Create error alert
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-error';
+            alertDiv.innerHTML = message;
+            
+            // Insert at the top of the card
+            const card = document.querySelector('.card');
+            card.insertBefore(alertDiv, card.firstChild);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                alertDiv.style.transition = 'opacity 0.3s ease';
+                alertDiv.style.opacity = '0';
+                setTimeout(() => alertDiv.remove(), 300);
+            }, 5000);
+        }
+        
+        // Update mobile count
+        function updateMobileCount() {
+            const countElement = document.querySelector('strong');
+            const tableRows = document.querySelectorAll('.table tbody tr');
+            if (countElement && tableRows) {
+                countElement.textContent = tableRows.length;
+            }
+        }
+        
         // Add some interactivity to table rows
         document.addEventListener('DOMContentLoaded', function() {
             const rows = document.querySelectorAll('.table tbody tr');

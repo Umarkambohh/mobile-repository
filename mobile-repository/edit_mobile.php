@@ -90,12 +90,6 @@ $form_data = [
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>✏️ Edit Mobile Phone</h1>
-            <p>Update mobile phone information</p>
-        </div>
-        
         <!-- Navigation Menu -->
         <nav class="nav-menu">
             <ul>
@@ -183,18 +177,6 @@ $form_data = [
                     </a>
                 </div>
             </form>
-            
-            <!-- Current Info -->
-            <div class="mt-30">
-                <h3>📋 Current Information</h3>
-                <div style="background: #f7fafc; padding: 15px; border-radius: 8px; margin-top: 10px;">
-                    <p><strong>ID:</strong> <?php echo $mobile['id']; ?></p>
-                    <p><strong>Original Name:</strong> <?php echo htmlspecialchars($mobile['name']); ?></p>
-                    <p><strong>Original Brand:</strong> <?php echo htmlspecialchars($mobile['brand']); ?></p>
-                    <p><strong>Original Price:</strong> Rs.<?php echo number_format($mobile['price']); ?></p>
-                    <p><strong>Added Date:</strong> <?php echo date('M d, Y h:i A', strtotime($mobile['created_at'])); ?></p>
-                </div>
-            </div>
         </div>
     </div>
     
