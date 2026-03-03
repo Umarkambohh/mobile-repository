@@ -35,7 +35,7 @@ try {
     $conn = $database->getConnection();
     
     // Check if mobile exists
-    $stmt = $conn->prepare("SELECT id, name, brand, price FROM mobiles WHERE id = :id");
+    $stmt = $conn->prepare("SELECT id, mobile_name, brand, price FROM mobile_phone WHERE id = :id");
     $stmt->bindParam(':id', $mobile_id);
     $stmt->execute();
     
@@ -48,7 +48,7 @@ try {
     }
     
     // Delete the mobile
-    $stmt = $conn->prepare("DELETE FROM mobiles WHERE id = :id");
+    $stmt = $conn->prepare("DELETE FROM mobile_phone WHERE id = :id");
     $stmt->bindParam(':id', $mobile_id);
     
     if ($stmt->execute()) {
@@ -56,7 +56,7 @@ try {
         echo json_encode([
             'success' => true, 
             'message' => 'Mobile phone deleted successfully!',
-            'mobile_name' => $mobile['name'],
+            'mobile_name' => $mobile['mobile_name'],
             'mobile_brand' => $mobile['brand']
         ]);
         exit();

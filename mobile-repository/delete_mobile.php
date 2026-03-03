@@ -33,7 +33,7 @@ try {
     $conn = $database->getConnection();
     
     // Check if mobile exists and get details for confirmation
-    $stmt = $conn->prepare("SELECT id, name, brand, price FROM mobiles WHERE id = :id");
+    $stmt = $conn->prepare("SELECT id, mobile_name, brand, price FROM mobile_phone WHERE id = :id");
     $stmt->bindParam(':id', $mobile_id);
     $stmt->execute();
     
@@ -47,7 +47,7 @@ try {
     // Handle confirmation
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_delete'])) {
         // User confirmed deletion
-        $stmt = $conn->prepare("DELETE FROM mobiles WHERE id = :id");
+        $stmt = $conn->prepare("DELETE FROM mobile_phone WHERE id = :id");
         $stmt->bindParam(':id', $mobile_id);
         
         if ($stmt->execute()) {
@@ -103,7 +103,7 @@ try {
             <div style="background: #f7fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
                 <h3>📱 Mobile Phone Details:</h3>
                 <p><strong>ID:</strong> <?php echo $mobile['id']; ?></p>
-                <p><strong>Name:</strong> <?php echo htmlspecialchars($mobile['name']); ?></p>
+                <p><strong>Name:</strong> <?php echo htmlspecialchars($mobile['mobile_name']); ?></p>
                 <p><strong>Brand:</strong> <?php echo htmlspecialchars($mobile['brand']); ?></p>
                 <p><strong>Price:</strong> Rs.<?php echo number_format($mobile['price']); ?></p>
             </div>

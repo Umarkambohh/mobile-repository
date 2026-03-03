@@ -60,10 +60,10 @@ mobile-repository/
 ### Step 1: Database Setup
 
 1. Start XAMPP and launch phpMyAdmin
-2. Create a new database named `mobile_repository`
+2. Create a new database named `mobile_repo`
 3. Import the `database_setup.sql` file:
    - Open phpMyAdmin
-   - Select the `mobile_repository` database
+   - Select the `mobile_repo` database
    - Click "Import" tab
    - Choose the `database_setup.sql` file
    - Click "Go"
@@ -90,7 +90,7 @@ If your MySQL credentials are different, update `db.php`:
 private $host = "localhost";
 private $username = "your_username";
 private $password = "your_password";
-private $dbname = "mobile_repository";
+private $dbname = "mobile_repo";
 ```
 
 ### Step 4: Access the Application
@@ -104,23 +104,25 @@ private $dbname = "mobile_repository";
 - **Username:** admin
 - **Password:** admin123
 
+> **Note:** The field is named `userid` in the database, but the login form still uses "username" as the label for user familiarity.
+
 ## 📊 Database Schema
 
-### Users Table
+### UserLogin Table
 ```sql
-CREATE TABLE users (
+CREATE TABLE UserLogin (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(50) UNIQUE NOT NULL,
+    userid VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
-### Mobiles Table
+### Mobile_Phone Table
 ```sql
-CREATE TABLE mobiles (
+CREATE TABLE mobile_phone (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
+    mobile_name VARCHAR(100) NOT NULL,
     brand VARCHAR(100) NOT NULL,
     price INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

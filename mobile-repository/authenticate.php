@@ -18,11 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Get form data
-$username = trim($_POST['username'] ?? '');
+$userid = trim($_POST['username'] ?? '');
 $password = $_POST['password'] ?? '';
 
 // Validate input
-if (empty($username) || empty($password)) {
+if (empty($userid) || empty($password)) {
     header("Location: login.php?error=empty");
     exit();
 }
@@ -32,8 +32,8 @@ try {
     $conn = $database->getConnection();
     
     // Prepare SQL statement to prevent SQL injection
-    $stmt = $conn->prepare("SELECT id, username, password FROM users WHERE username = :username");
-    $stmt->bindParam(':username', $username);
+    $stmt = $conn->prepare("SELECT id, userid, password FROM UserLogin WHERE userid = :userid");
+    $stmt->bindParam(':userid', $userid);
     $stmt->execute();
     
     // Fetch user
@@ -43,7 +43,7 @@ try {
     if ($user && password_verify($password, $user['password'])) {
         // Password is correct, create session
         $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
+        $_SESSION['username'] = $user['userid'];
         $_SESSION['login_time'] = time();
         
         // Regenerate session ID for security

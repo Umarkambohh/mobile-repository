@@ -21,19 +21,19 @@ try {
     $conn = $database->getConnection();
     
     // Get total mobile count
-    $stmt = $conn->query("SELECT COUNT(*) as total FROM mobiles");
+    $stmt = $conn->query("SELECT COUNT(*) as total FROM mobile_phone");
     $total_mobiles = $stmt->fetch()['total'];
     
     // Get count of mobiles between 10k-20k
-    $stmt = $conn->query("SELECT COUNT(*) as count FROM mobiles WHERE price > 10000 AND price < 20000");
+    $stmt = $conn->query("SELECT COUNT(*) as count FROM mobile_phone WHERE price > 10000 AND price < 20000");
     $mobile_10_20 = $stmt->fetch()['count'];
     
     // Get count of mobiles above 20k
-    $stmt = $conn->query("SELECT COUNT(*) as count FROM mobiles WHERE price > 20000");
+    $stmt = $conn->query("SELECT COUNT(*) as count FROM mobile_phone WHERE price > 20000");
     $mobile_above_20 = $stmt->fetch()['count'];
     
     // Get latest 5 mobiles
-    $stmt = $conn->query("SELECT * FROM mobiles ORDER BY created_at DESC LIMIT 5");
+    $stmt = $conn->query("SELECT * FROM mobile_phone ORDER BY created_at DESC LIMIT 5");
     $latest_mobiles = $stmt->fetchAll();
     
 } catch (Exception $e) {
@@ -120,7 +120,7 @@ try {
                             <?php foreach ($latest_mobiles as $mobile): ?>
                             <tr>
                                 <td><?php echo $mobile['id']; ?></td>
-                                <td><?php echo htmlspecialchars($mobile['name']); ?></td>
+                                <td><?php echo htmlspecialchars($mobile['mobile_name']); ?></td>
                                 <td><?php echo htmlspecialchars($mobile['brand']); ?></td>
                                 <td>Rs.<?php echo number_format($mobile['price']); ?></td>
                                 <td><?php echo date('M d, Y', strtotime($mobile['created_at'])); ?></td>

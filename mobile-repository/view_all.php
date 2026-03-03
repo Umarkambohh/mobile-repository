@@ -44,7 +44,7 @@ try {
     $conn = $database->getConnection();
     
     // Build base query
-    $base_query = "SELECT * FROM mobiles";
+    $base_query = "SELECT * FROM mobile_phone";
     $params = [];
     $where_conditions = [];
     
@@ -62,7 +62,7 @@ try {
     
     // Add search condition if search term provided
     if (!empty($search)) {
-        $where_conditions[] = "(name LIKE :search OR brand LIKE :search)";
+        $where_conditions[] = "(mobile_name LIKE :search OR brand LIKE :search)";
         $search_param = "%$search%";
         $params[':search'] = $search_param;
         $search_query = $search;
@@ -195,7 +195,7 @@ $total_count = count($mobiles);
                             <tr>
                                 <td><?php echo $mobile['id']; ?></td>
                                 <td>
-                                    <strong><?php echo htmlspecialchars($mobile['name']); ?></strong>
+                                    <strong><?php echo htmlspecialchars($mobile['mobile_name']); ?></strong>
                                 </td>
                                 <td>
                                     <span style="background: #667eea; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px;">

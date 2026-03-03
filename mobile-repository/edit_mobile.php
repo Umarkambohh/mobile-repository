@@ -39,7 +39,7 @@ if (isset($_GET['success'])) {
 try {
     $conn = $database->getConnection();
     
-    $stmt = $conn->prepare("SELECT * FROM mobiles WHERE id = :id");
+    $stmt = $conn->prepare("SELECT * FROM mobile_phone WHERE id = :id");
     $stmt->bindParam(':id', $mobile_id);
     $stmt->execute();
     
@@ -74,7 +74,7 @@ if (isset($_GET['error'])) {
 
 // Restore form data if there was an error
 $form_data = [
-    'name' => $_GET['name'] ?? $mobile['name'] ?? '',
+    'name' => $_GET['name'] ?? $mobile['mobile_name'] ?? '',
     'brand' => $_GET['brand'] ?? $mobile['brand'] ?? '',
     'price' => $_GET['price'] ?? $mobile['price'] ?? ''
 ];

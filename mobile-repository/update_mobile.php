@@ -25,20 +25,20 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // Get and sanitize form data
 $mobile_id = trim($_POST['id'] ?? '');
-$name = trim($_POST['name'] ?? '');
+$mobile_name = trim($_POST['name'] ?? '');
 $brand = trim($_POST['brand'] ?? '');
 $price = trim($_POST['price'] ?? '');
 
 // Store form data for error recovery
 $query_params = http_build_query([
     'id' => $mobile_id,
-    'name' => $name,
+    'name' => $mobile_name,
     'brand' => $brand,
     'price' => $price
 ]);
 
 // Validation
-if (empty($mobile_id) || empty($name) || empty($brand) || empty($price)) {
+if (empty($mobile_id) || empty($mobile_name) || empty($brand) || empty($price)) {
     header("Location: edit_mobile.php?id=$mobile_id&error=empty&$query_params");
     exit();
 }
@@ -50,7 +50,7 @@ if (!is_numeric($mobile_id)) {
 }
 
 // Validate name length
-if (strlen($name) > 100) {
+if (strlen($mobile_name) > 100) {
     header("Location: edit_mobile.php?id=$mobile_id&error=name_length&$query_params");
     exit();
 }
@@ -76,7 +76,7 @@ try {
     $conn = $database->getConnection();
     
     // Check if mobile exists
-    $stmt = $conn->prepare("SELECT id FROM mobiles WHERE id = :id");
+    $stmt = $conn->prepare("SELECT id FROM mobile_phone WHERE id = :id");
     $stmt->bindParam(':id', $mobile_id);
     $stmt->execute();
     
@@ -86,10 +86,10 @@ try {
     }
     
     // Prepare SQL statement to prevent SQL injection
-    $stmt = $conn->prepare("UPDATE mobiles SET name = :name, brand = :brand, price = :price WHERE id = :id");
+    $stmt = $conn->prepare("UPDATE mobile_phone SET mobile_name = :mobile_name, brand = :brand, price = :price WHERE id = :id");
     
     // Bind parameters
-    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':mobile_name', $mobile_name);
     $stmt->bindParam(':brand', $brand);
     $stmt->bindParam(':price', $price, PDO::PARAM_INT);
     $stmt->bindParam(':id', $mobile_id, PDO::PARAM_INT);

@@ -24,25 +24,25 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Get and sanitize form data
-$name = trim($_POST['name'] ?? '');
+$mobile_name = trim($_POST['name'] ?? '');
 $brand = trim($_POST['brand'] ?? '');
 $price = trim($_POST['price'] ?? '');
 
 // Store form data for error recovery
 $query_params = http_build_query([
-    'name' => $name,
+    'name' => $mobile_name,
     'brand' => $brand,
     'price' => $price
 ]);
 
 // Validation
-if (empty($name) || empty($brand) || empty($price)) {
+if (empty($mobile_name) || empty($brand) || empty($price)) {
     header("Location: add_mobile.php?error=empty&$query_params");
     exit();
 }
 
 // Validate name length
-if (strlen($name) > 100) {
+if (strlen($mobile_name) > 100) {
     header("Location: add_mobile.php?error=name_length&$query_params");
     exit();
 }
@@ -67,10 +67,10 @@ try {
     $conn = $database->getConnection();
     
     // Prepare SQL statement to prevent SQL injection
-    $stmt = $conn->prepare("INSERT INTO mobiles (name, brand, price) VALUES (:name, :brand, :price)");
+    $stmt = $conn->prepare("INSERT INTO mobile_phone (mobile_name, brand, price) VALUES (:mobile_name, :brand, :price)");
     
     // Bind parameters
-    $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':mobile_name', $mobile_name);
     $stmt->bindParam(':brand', $brand);
     $stmt->bindParam(':price', $price, PDO::PARAM_INT);
     

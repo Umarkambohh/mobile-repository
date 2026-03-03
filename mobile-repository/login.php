@@ -22,7 +22,7 @@ if (isset($_GET['error'])) {
             $error = "Invalid username or password!";
             break;
         case 'empty':
-            $error = "Please enter both username and password!";
+            $error = "Please enter both userid and password!";
             break;
         case 'db_error':
             $error = "Database connection error. Please try again later.";
