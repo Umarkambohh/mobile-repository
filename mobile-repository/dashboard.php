@@ -60,8 +60,6 @@ try {
                 <li><a href="dashboard.php">🏠 Home</a></li>
                 <li><a href="add_mobile.php">➕ Add Mobile Phone</a></li>
                 <li><a href="view_all.php">📋 View All Mobiles</a></li>
-                <li><a href="price_10_20.php">💰 Price Rs.10,000 – Rs.20,000</a></li>
-                <li><a href="price_above_20.php">💎 Price Above Rs.20,000</a></li>
                 <li><a href="logout.php">🚪 Logout</a></li>
             </ul>
         </nav>
@@ -100,8 +98,6 @@ try {
                 <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
                     <a href="add_mobile.php" class="btn btn-success">➕ Add New Mobile</a>
                     <a href="view_all.php" class="btn">📋 View All Mobiles</a>
-                    <a href="price_10_20.php" class="btn">💰 Rs.10K-Rs.20K</a>
-                    <a href="price_above_20.php" class="btn">💎 Premium (>Rs.20K)</a>
                 </div>
             </div>
             

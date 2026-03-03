@@ -14,7 +14,8 @@ A comprehensive web-based system for managing mobile phone data using PHP and My
 ### 📱 Mobile Phone Management
 - Add new mobile phones with validation
 - View all mobile phones in a structured table
-- Price-based filtering:
+- Price-based filtering with dropdown selection:
+  - All mobile phones
   - Mobile phones between Rs10,000 - Rs20,000
   - Mobile phones above Rs20,000
 - Search functionality for mobile phones
@@ -38,9 +39,11 @@ mobile-repository/
 ├── dashboard.php             # Home/Dashboard page
 ├── add_mobile.php            # Add mobile phone form
 ├── insert_mobile.php         # Insert mobile handler
-├── view_all.php              # View all mobile phones
-├── price_10_20.php           # Mobile phones Rs10K-Rs20K
-├── price_above_20.php        # Mobile phones above Rs20K
+├── view_all.php              # View all mobile phones with filters
+├── edit_mobile.php           # Edit mobile phone form
+├── update_mobile.php         # Update mobile handler
+├── delete_mobile.php         # Delete mobile confirmation
+├── delete_mobile_ajax.php    # AJAX delete handler
 ├── style.css                 # Stylesheet
 ├── database_setup.sql        # Database setup script
 └── README.md                 # This file
@@ -184,9 +187,10 @@ The system comes pre-loaded with sample mobile phone data:
 1. **Login:** Use the default credentials to access the system
 2. **Dashboard:** View statistics and recent mobile phones
 3. **Add Mobile:** Add new mobile phones using the form
-4. **View All:** Browse all mobile phones with search functionality
-5. **Price Filters:** View mobile phones by price ranges
-6. **Logout:** Securely logout when done
+4. **View All:** Browse all mobile phones with search and price range filtering
+5. **Price Filters:** Use dropdown to filter mobile phones by price ranges
+6. **Edit/Delete:** Modify or remove existing mobile phone entries
+7. **Logout:** Securely logout when done
 
 ## 🔍 Features in Detail
 
@@ -205,14 +209,16 @@ The system comes pre-loaded with sample mobile phone data:
 ### View All Mobiles
 - Sortable table with all mobile phones
 - Search functionality by name/brand
+- Price range filtering with dropdown selection
 - Summary statistics
 - Responsive table design
+- Edit and delete actions for each mobile
 
-### Price Range Pages
-- Detailed analysis for each price segment
-- Visual charts and graphs
-- Value scoring and recommendations
-- Market insights
+### Price Range Filtering
+- Integrated price range filtering in View All page
+- Dropdown selection for different price ranges
+- Combined filtering with search functionality
+- Real-time data updates
 
 ## 🛡️ Security Considerations
 
@@ -246,10 +252,11 @@ Potential features to add:
 **Project Requirements Fulfilled: ✅**
 - ✅ Authentication system with login/logout
 - ✅ Database connection with exception handling
-- ✅ CRUD operations (Create, Read)
-- ✅ Price-based filtering
+- ✅ CRUD operations (Create, Read, Update, Delete)
+- ✅ Price-based filtering with dropdown
 - ✅ Form validation
 - ✅ Responsive UI design
 - ✅ Secure coding practices
 - ✅ Error handling
 - ✅ Clean project structure
+- ✅ AJAX functionality for delete operations

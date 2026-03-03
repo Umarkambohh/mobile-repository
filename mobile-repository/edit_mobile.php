@@ -96,8 +96,6 @@ $form_data = [
                 <li><a href="dashboard.php">🏠 Home</a></li>
                 <li><a href="add_mobile.php">➕ Add Mobile Phone</a></li>
                 <li><a href="view_all.php">📋 View All Mobiles</a></li>
-                <li><a href="price_10_20.php">💰 Price Rs.10,000 – Rs.20,000</a></li>
-                <li><a href="price_above_20.php">💎 Price Above Rs.20,000</a></li>
                 <li><a href="logout.php">🚪 Logout</a></li>
             </ul>
         </nav>

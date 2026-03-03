@@ -35,9 +35,10 @@ if (isset($_GET['updated'])) {
     $success_msg = "Mobile phone updated successfully!";
 }
 
-// Handle search
+// Handle search and price range filter
 $search = trim($_GET['search'] ?? '');
 $search_query = '';
+$price_range = $_GET['price_range'] ?? 'all';
 
 try {
     $conn = $database->getConnection();
@@ -45,13 +46,31 @@ try {
     // Build base query
     $base_query = "SELECT * FROM mobiles";
     $params = [];
+    $where_conditions = [];
+    
+    // Add price range condition
+    if ($price_range !== 'all') {
+        switch ($price_range) {
+            case 'price_10_20':
+                $where_conditions[] = "price > 10000 AND price < 20000";
+                break;
+            case 'price_above_20':
+                $where_conditions[] = "price > 20000";
+                break;
+        }
+    }
     
     // Add search condition if search term provided
     if (!empty($search)) {
-        $base_query .= " WHERE name LIKE :search OR brand LIKE :search";
+        $where_conditions[] = "(name LIKE :search OR brand LIKE :search)";
         $search_param = "%$search%";
         $params[':search'] = $search_param;
         $search_query = $search;
+    }
+    
+    // Combine WHERE conditions
+    if (!empty($where_conditions)) {
+        $base_query .= " WHERE " . implode(' AND ', $where_conditions);
     }
     
     $base_query .= " ORDER BY created_at DESC";
@@ -87,8 +106,6 @@ $total_count = count($mobiles);
                 <li><a href="dashboard.php">🏠 Home</a></li>
                 <li><a href="add_mobile.php">➕ Add Mobile Phone</a></li>
                 <li><a href="view_all.php">📋 View All Mobiles</a></li>
-                <li><a href="price_10_20.php">💰 Price Rs.10,000 – Rs.20,000</a></li>
-                <li><a href="price_above_20.php">💎 Price Above Rs.20,000</a></li>
                 <li><a href="logout.php">🚪 Logout</a></li>
             </ul>
         </nav>
@@ -106,8 +123,6 @@ $total_count = count($mobiles);
                 <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
                     <a href="add_mobile.php" class="btn btn-success">➕ Add New Mobile</a>
                     <a href="view_all.php" class="btn">📋 View All Mobiles</a>
-                    <a href="price_10_20.php" class="btn">💰 Rs.10K-Rs.20K</a>
-                    <a href="price_above_20.php" class="btn">💎 Premium (>Rs.20K)</a>
                 </div>
             </div>
             
@@ -125,20 +140,39 @@ $total_count = count($mobiles);
                 </div>
             <?php endif; ?>
             
-            <!-- Search Form -->
+            <!-- Search and Filter Form -->
             <div style="margin-bottom: 20px;">
-                <form method="GET" action="view_all.php" style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <input 
-                        type="text" 
-                        name="search" 
-                        placeholder="Search by name or brand..." 
-                        value="<?php echo htmlspecialchars($search_query); ?>"
-                        style="flex: 1; min-width: 200px; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px;"
-                    >
-                    <button type="submit" class="btn">🔍 Search</button>
-                    <?php if (!empty($search_query)): ?>
-                        <a href="view_all.php" class="btn btn-danger">✖ Clear</a>
-                    <?php endif; ?>
+                <form method="GET" action="view_all.php" style="display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #4a5568;">Search:</label>
+                        <input 
+                            type="text" 
+                            name="search" 
+                            placeholder="Search by name or brand..." 
+                            value="<?php echo htmlspecialchars($search_query); ?>"
+                            style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px;"
+                        >
+                    </div>
+                    
+                    <div style="min-width: 200px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #4a5568;">Price Range:</label>
+                        <select 
+                            name="price_range" 
+                            style="width: 100%; padding: 10px; border: 2px solid #e2e8f0; border-radius: 8px; background: white;"
+                            onchange="this.form.submit()"
+                        >
+                            <option value="all" <?php echo $price_range === 'all' ? 'selected' : ''; ?>>All Mobiles</option>
+                            <option value="price_10_20" <?php echo $price_range === 'price_10_20' ? 'selected' : ''; ?>>Rs.10,000 - Rs.20,000</option>
+                            <option value="price_above_20" <?php echo $price_range === 'price_above_20' ? 'selected' : ''; ?>>Above Rs.20,000</option>
+                        </select>
+                    </div>
+                    
+                    <div style="display: flex; gap: 5px;">
+                        <button type="submit" class="btn">🔍 Search</button>
+                        <?php if (!empty($search_query) || $price_range !== 'all'): ?>
+                            <a href="view_all.php" class="btn btn-danger">✖ Clear All</a>
+                        <?php endif; ?>
+                    </div>
                 </form>
             </div>
             
