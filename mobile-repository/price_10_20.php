@@ -47,12 +47,6 @@ $count = count($mobiles);
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>💰 Mobile Phones: ₹10,000 - ₹20,000</h1>
-            <p>Budget-friendly mobile phones in the mid-range category</p>
-        </div>
-        
         <!-- Navigation Menu -->
         <nav class="nav-menu">
             <ul>
@@ -96,7 +90,7 @@ $count = count($mobiles);
                 <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
                     <a href="dashboard.php" class="btn">🏠 Dashboard</a>
                     <a href="view_all.php" class="btn">📋 All Mobiles</a>
-                    <a href="price_above_20.php" class="btn">💎 Premium (>₹20K)</a>
+                    <a href="price_above_20.php" class="btn">💎 Premium (>Rs20K)</a>
                     <a href="add_mobile.php" class="btn btn-success">➕ Add Mobile</a>
                 </div>
             </div>
@@ -113,7 +107,7 @@ $count = count($mobiles);
                                 <th>Price</th>
                                 <th>Price Range</th>
                                 <th>Added Date</th>
-                                <th>Value Score</th>
+                                <!-- <th>Value Score</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -157,72 +151,18 @@ $count = count($mobiles);
                                     </span>
                                 </td>
                                 <td><?php echo date('M d, Y', strtotime($mobile['created_at'])); ?></td>
-                                <td>
+                                <!-- <td>
                                     <div style="display: flex; align-items: center; gap: 5px;">
                                         <div style="flex: 1; background: #e2e8f0; border-radius: 4px; height: 8px; overflow: hidden;">
                                             <div style="background: <?php echo $value_score >= 70 ? '#38a169' : ($value_score >= 40 ? '#ed8936' : '#e53e3e'); ?>; height: 100%; width: <?php echo $value_score; ?>%;"></div>
                                         </div>
                                         <small style="color: #718096;"><?php echo $value_score; ?>%</small>
                                     </div>
-                                </td>
+                                </td> -->
                             </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
-                </div>
-                
-                <!-- Price Distribution Chart -->
-                <div style="margin-top: 30px; padding: 20px; background: #f7fafc; border-radius: 8px;">
-                    <h3>📈 Price Distribution Analysis</h3>
-                    
-                    <?php 
-                    // Calculate price distribution
-                    $price_ranges = [
-                        '10K-12K' => 0,
-                        '12K-15K' => 0,
-                        '15K-18K' => 0,
-                        '18K-20K' => 0
-                    ];
-                    
-                    foreach ($mobiles as $mobile) {
-                        if ($mobile['price'] <= 12000) {
-                            $price_ranges['10K-12K']++;
-                        } elseif ($mobile['price'] <= 15000) {
-                            $price_ranges['12K-15K']++;
-                        } elseif ($mobile['price'] <= 18000) {
-                            $price_ranges['15K-18K']++;
-                        } else {
-                            $price_ranges['18K-20K']++;
-                        }
-                    }
-                    ?>
-                    
-                    <div style="margin-top: 15px;">
-                        <?php foreach ($price_ranges as $range => $count): ?>
-                        <div style="margin-bottom: 10px;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                <span style="font-weight: 600;"><?php echo $range; ?></span>
-                                <span><?php echo $count; ?> mobiles</span>
-                            </div>
-                            <div style="background: #e2e8f0; border-radius: 4px; height: 20px; overflow: hidden;">
-                                <?php $percentage = $count > 0 ? ($count / $total_count) * 100 : 0; ?>
-                                <div style="background: linear-gradient(90deg, #667eea, #764ba2); height: 100%; width: <?php echo $percentage; ?>%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 600;">
-                                    <?php echo $percentage > 10 ? round($percentage, 1) . '%' : ''; ?>
-                                </div>
-                            </div>
-                        </div>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-                
-                <!-- Recommendations -->
-                <div style="margin-top: 20px; padding: 20px; background: #edf2f7; border-left: 4px solid #667eea; border-radius: 4px;">
-                    <h3>💡 Budget Recommendations</h3>
-                    <ul style="color: #4a5568; line-height: 1.8; margin-top: 10px;">
-                        <li><strong>Best Value:</strong> Mobiles under Rs.12,000 offer excellent features for budget-conscious buyers</li>
-                        <li><strong>Balanced Choice:</strong> Rs.15,000 range provides good balance between features and price</li>
-                        <li><strong>Premium Feel:</strong> Rs.18,000-20,000 range offers near-premium features at budget prices</li>
-                    </ul>
                 </div>
                 
             <?php else: ?>

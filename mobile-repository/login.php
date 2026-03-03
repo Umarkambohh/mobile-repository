@@ -100,11 +100,11 @@ if (isset($_GET['logout']) && $_GET['logout'] == 'success') {
                 </button>
             </form>
             
-            <div class="mt-30 text-center">
+            <!-- <div class="mt-30 text-center">
                 <small style="color: #718096;">
                     Default Login: admin / admin123
                 </small>
-            </div>
+            </div> -->
         </div>
     </div>
 </body>

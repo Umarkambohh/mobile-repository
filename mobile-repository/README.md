@@ -15,8 +15,8 @@ A comprehensive web-based system for managing mobile phone data using PHP and My
 - Add new mobile phones with validation
 - View all mobile phones in a structured table
 - Price-based filtering:
-  - Mobile phones between ₹10,000 - ₹20,000
-  - Mobile phones above ₹20,000
+  - Mobile phones between Rs10,000 - Rs20,000
+  - Mobile phones above Rs20,000
 - Search functionality for mobile phones
 - Real-time statistics and analytics
 
@@ -39,8 +39,8 @@ mobile-repository/
 ├── add_mobile.php            # Add mobile phone form
 ├── insert_mobile.php         # Insert mobile handler
 ├── view_all.php              # View all mobile phones
-├── price_10_20.php           # Mobile phones ₹10K-₹20K
-├── price_above_20.php        # Mobile phones above ₹20K
+├── price_10_20.php           # Mobile phones Rs10K-Rs20K
+├── price_above_20.php        # Mobile phones above Rs20K
 ├── style.css                 # Stylesheet
 ├── database_setup.sql        # Database setup script
 └── README.md                 # This file
@@ -173,10 +173,10 @@ CREATE TABLE mobiles (
 ## 📱 Sample Data
 
 The system comes pre-loaded with sample mobile phone data:
-- iPhone 14 (₹85,000)
-- Samsung Galaxy S23 (₹75,000)
-- OnePlus 11 (₹55,000)
-- Xiaomi Redmi Note 12 (₹18,000)
+- iPhone 14 (Rs85,000)
+- Samsung Galaxy S23 (Rs75,000)
+- OnePlus 11 (Rs55,000)
+- Xiaomi Redmi Note 12 (Rs18,000)
 - And more...
 
 ## 🚀 Usage Guide

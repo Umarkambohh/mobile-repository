@@ -53,10 +53,6 @@ try {
 <body>
     <div class="container">
         <!-- Header -->
-        <div class="header">
-            <h1>📱 Mobile Repository System</h1>
-            <p>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</p>
-        </div>
         
         <!-- Navigation Menu -->
         <nav class="nav-menu">

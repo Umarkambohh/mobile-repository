@@ -72,11 +72,6 @@ $total_count = count($mobiles);
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>📋 All Mobile Phones</h1>
-            <p>Complete list of mobile phones in the repository</p>
-        </div>
         
         <!-- Navigation Menu -->
         <nav class="nav-menu">
@@ -197,55 +192,6 @@ $total_count = count($mobiles);
                             <?php endforeach; ?>
                         </tbody>
                     </table>
-                </div>
-                
-                <!-- Summary Statistics -->
-                <div style="margin-top: 30px; padding: 20px; background: #f7fafc; border-radius: 8px;">
-                    <h3>📊 Summary Statistics</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 15px;">
-                        <div style="text-align: center;">
-                            <h4 style="color: #667eea; margin-bottom: 5px;"><?php echo $total_count; ?></h4>
-                            <p style="color: #718096; font-size: 14px;">Total Mobiles</p>
-                        </div>
-                        
-                        <?php 
-                        // Calculate average price
-                        $avg_price = 0;
-                        if ($total_count > 0) {
-                            $total_price = array_sum(array_column($mobiles, 'price'));
-                            $avg_price = $total_price / $total_count;
-                        }
-                        ?>
-                        <div style="text-align: center;">
-                            <h4 style="color: #38a169; margin-bottom: 5px;">₹<?php echo number_format($avg_price, 0); ?></h4>
-                            <p style="color: #718096; font-size: 14px;">Average Price</p>
-                        </div>
-                        
-                        <?php 
-                        // Find most expensive
-                        $most_expensive = null;
-                        $max_price = 0;
-                        foreach ($mobiles as $mobile) {
-                            if ($mobile['price'] > $max_price) {
-                                $max_price = $mobile['price'];
-                                $most_expensive = $mobile;
-                            }
-                        }
-                        ?>
-                        <div style="text-align: center;">
-                            <h4 style="color: #e53e3e; margin-bottom: 5px;">₹<?php echo number_format($max_price); ?></h4>
-                            <p style="color: #718096; font-size: 14px;">Highest Price</p>
-                        </div>
-                        
-                        <?php 
-                        // Count unique brands
-                        $brands = array_unique(array_column($mobiles, 'brand'));
-                        ?>
-                        <div style="text-align: center;">
-                            <h4 style="color: #805ad5; margin-bottom: 5px;"><?php echo count($brands); ?></h4>
-                            <p style="color: #718096; font-size: 14px;">Unique Brands</p>
-                        </div>
-                    </div>
                 </div>
                 
             <?php else: ?>

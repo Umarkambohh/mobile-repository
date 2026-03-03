@@ -68,11 +68,7 @@ if (isset($_GET['price'])) {
 <body>
     <div class="container">
         <!-- Header -->
-        <div class="header">
-            <h1>📱 Add Mobile Phone</h1>
-            <p>Add a new mobile phone to the repository</p>
-        </div>
-        
+       
         <!-- Navigation Menu -->
         <nav class="nav-menu">
             <ul>
@@ -173,17 +169,6 @@ if (isset($_GET['price'])) {
                     </a>
                 </div>
             </form>
-            
-            <!-- Form Validation Info -->
-            <div class="mt-30">
-                <h3>📝 Validation Rules:</h3>
-                <ul style="color: #718096; line-height: 1.8;">
-                    <li>All fields are required (marked with *)</li>
-                    <li>Mobile Name and Brand can be up to 100 characters</li>
-                    <li>Price must be a valid number (0-999999)</li>
-                    <li>Price should be in Indian Rupees (₹)</li>
-                </ul>
-            </div>
         </div>
     </div>
     
